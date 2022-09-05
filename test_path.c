@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * test_path - checks whether path is valid
+ * test_path - checks whether path is correct
  * @path: tokenized path
  * @command: user entered command
  * Return: path appended with command on success

@@ -3,7 +3,7 @@
  * _strcmp - compares two strings
  * @s1: compared to s2
  * @s2: compared to s1
- * Return: returns difference between strings
+ * Return: difference between strings
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -82,7 +82,7 @@ char *_strdup(char *s)
  * _strchr - locates a character in a string
  * @s: string to be checked
  * @c: character to be located
- * Return: returns pointer to first occurence of character
+ * Return: pointer to first occurence of character
  * or NULL if character not found
  */
 char *_strchr(char *s, char c)

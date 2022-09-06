@@ -15,7 +15,7 @@ This is a shell written in C programming language
 To install, clone the below repository and compile the files into an executable using the GCC compiler.
 
 https://github.com/Matlo21/simple_shell
-	Basic Usage
+	3. Basic Usage
 - First copy the link to the repository.
 - Clone the repository to your computer
 - Create an executable by running the following command:

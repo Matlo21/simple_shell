@@ -38,18 +38,35 @@ char *find_path(void);
 /* helper function for efficient free */
 void free_buffers(char **buf);
 
+/**
+ * struct builtin - handles buitins
+ * @env: first member
+ * @exit: second member
+ * Description: builtin commands
+ */
 struct builtin
 {
 	char *env;
 	char *exit;
 } builtin;
 
+/**
+ * struct info - status info structure
+ * @final_exit: first member
+ * @ln_count: second member
+ * Desription:i handles errors
+ */
 struct info
 {
 	int final_exit;
 	int ln_count;
 } info;
 
+/**
+ * struct flags - holds flag
+ * @interactive: first member
+ * Description: handles boolean switches
+ */
 struct flags
 {
 	bool interactive;

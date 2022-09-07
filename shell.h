@@ -1,75 +1,46 @@
-#ifndef SHELL_H
-#define SHELL_H
-#include <stdarg.h>
+#ifndef _SHELL_H_
+#define _SHELL_H_
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
-#include <time.h>
-#include <stdbool.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <string.h>
+#include <signal.h>
 
-/* environment variables */
 extern char **environ;
-extern __sighandler_t signal(int __sig, __sighandler_t __handler);
 
-/* handle built ins */
-int checker(char **cmd, char *buf);
-void prompt_user(void);
-void handle_signal(int m);
-char **tokenizer(char *line);
-char *test_path(char **path, char *command);
-char *append_path(char *path, char *command);
-int handle_builtin(char **command, char *line);
-void exit_cmd(char **command, char *line);
-void print_env(void);
+/* PATH Shell Functions */
 
-/* string handlers */
-int _strcmp(char *s1, char *s2);
+/* Program Flow */
+int prompt(void);
+char *_read(void);
+char *_fullpathbuffer(char **av, char *PATH, char *copy);
+int checkbuiltins(char **av, char *buffer, int exitstatus);
+int _forkprocess(char **av, char *buffer, char *fullpathbuffer);
+
+/* String Helper Functions */
+char *_strdup(char *str);
+int _splitstring(char *str);
+int _strcmp(const char *s1, const char *s2);
+char *_strcat(char *dest, char *src);
 int _strlen(char *s);
-int _strncmp(char *s1, char *s2, int n);
-char *_strdup(char *s);
-char *_strchr(char *s, char c);
-void execution(char *cp, char **cmd);
-char *find_path(void);
 
-/* helper function for efficient free */
-void free_buffers(char **buf);
+/*Tokenize & PATH Helper Functions*/
+char **tokenize(char *buffer);
+int _splitPATH(char *str);
+int _PATHstrcmp(const char *s1, const char *s2);
+char *_concat(char *tmp, char **av, char *tok);
 
-/**
- * struct builtin - handles buitins
- * @env: first member
- * @exit: second member
- * Description: builtin commands
- */
-struct builtin
-{
-	char *env;
-	char *exit;
-} builtin;
+/*Other Helper Funcs*/
+char *_getenv(const char *name);
+int _env(void);
+void _puts(char *str);
+int _putchar(char c);
+char *_memset(char *s, char b, unsigned int n);
 
-/**
- * struct info - status info structure
- * @final_exit: first member
- * @ln_count: second member
- * Desription:i handles errors
- */
-struct info
-{
-	int final_exit;
-	int ln_count;
-} info;
-
-/**
- * struct flags - holds flag
- * @interactive: first member
- * Description: handles boolean switches
- */
-struct flags
-{
-	bool interactive;
-} flags;
-
-#endif
+#endif /* _SHELL_H_ */

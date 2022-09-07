@@ -76,7 +76,7 @@ struct info
 } info;
 
 /**
- * struct flags - Holds flags
+ * struct flags - Holds flag 
  * @interactive: First member
  * Description: handles boolean switches
  */
@@ -84,7 +84,5 @@ struct flags
 {
 		bool interactive;
 } flags;
-
-#endif /* __SHELL_H__ */
 
 #endif /* _SHELL_H_ */

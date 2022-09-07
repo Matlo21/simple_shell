@@ -36,11 +36,55 @@ int _splitPATH(char *str);
 int _PATHstrcmp(const char *s1, const char *s2);
 char *_concat(char *tmp, char **av, char *tok);
 
+/* Built-ins*/
+void env_builtin(void);
+void quiter(char **cmd, char *b);
+int is_builtin(char **cmd, char *b);
+void prompt_printer(void);
+void sighandle(int n);
+
 /*Other Helper Funcs*/
 char *_getenv(const char *name);
 int _env(void);
 void _puts(char *str);
 int _putchar(char c);
 char *_memset(char *s, char b, unsigned int n);
+
+/**
+ * struct builtins - Handles builtins
+ * @env: First member
+ * @exit: Second member
+ * Description: builtin commands
+ */
+struct builtins
+{
+	char *env;
+	char *exit;
+
+} builtins;
+
+/**
+ * struct info - Status info struct
+ * @final_exit: First member
+ * @ln_count: Second member
+ * Description: Used in error handling
+ */
+struct info
+{
+	int final_exit;
+	int ln_count;
+} info;
+
+/**
+ * struct flags - Holds flags
+ * @interactive: First member
+ * Description: handles boolean switches
+ */
+struct flags
+{
+		bool interactive;
+} flags;
+
+#endif /* __SHELL_H__ */
 
 #endif /* _SHELL_H_ */

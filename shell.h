@@ -43,4 +43,15 @@ void _puts(char *str);
 int _putchar(char c);
 char *_memset(char *s, char b, unsigned int n);
 
+/* from _getenv.c and getenviron.c */
+char ***getenviron(void);
+int setallenv(char **environ, char *add);
+char *_getenv(char *avzero);
+int _setenv(char *name, char *val);
+int _unsetenv(char *name);
+char **getallenv(void);
+
+/* from cd.c */
+int _cd(char *av[]);
+
 #endif /* _SHELL_H_ */

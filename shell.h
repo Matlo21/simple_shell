@@ -1,47 +1,32 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef SHELLH
+#define SHELLH
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <fcntl.h>
-#include <string.h>
-#include <signal.h>
+#include "history.h"
+#include "shellvars.h"
+/*#include <string.h>*/
 
-extern char **environ;
+/* from in.c */
+int shintmode(void);
 
-/* PATH Shell Functions */
+/* from _printenv.c */
+int _printenv(void);
 
-/* Program Flow */
-int prompt(void);
-char *_read(void);
-char *_fullpathbuffer(char **av, char *PATH, char *copy);
-int checkbuiltins(char **av, char *buffer, int exitstatus);
-int _forkprocess(char **av, char *buffer, char *fullpathbuffer);
+/* from cmdcall.c */
+int builtincall(char *av[]);
+int cmdcall(char *av[], char *path);
 
-/* String Helper Functions */
-char *_strdup(char *str);
-int _splitstring(char *str);
-int _strcmp(const char *s1, const char *s2);
-char *_strcat(char *dest, char *src);
-int _strlen(char *s);
+/* from parser.c */
+int parseargs(char **buf);
 
-/*Tokenize & PATH Helper Functions*/
-char **tokenize(char *buffer);
-int _splitPATH(char *str);
-int _PATHstrcmp(const char *s1, const char *s2);
-char *_concat(char *tmp, char **av, char *tok);
-
-/*Other Helper Funcs*/
-char *_getenv(const char *name);
-int _env(void);
-void _puts(char *str);
-int _putchar(char c);
-char *_memset(char *s, char b, unsigned int n);
+/* from errhandl.c */
+int errhandl(int status);
 
 /* from _getenv.c and getenviron.c */
 char ***getenviron(void);
@@ -51,7 +36,66 @@ int _setenv(char *name, char *val);
 int _unsetenv(char *name);
 char **getallenv(void);
 
+/* from string.c */
+size_t _strlen(char *str);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *, char *);
+char *_strdup(char *str);
+char *_strcat(char *a, char *b);
+
+/* from utility.c */
+char *itos(int digits);
+char *_strchr(char *s, char c);
+int fprintstrs(int fd, char *str, ...);
+int printerr(char *);
+int linecount(int);
+
 /* from cd.c */
 int _cd(char *av[]);
 
-#endif /* _SHELL_H_ */
+/* from alias.c */
+int aliascmd(char **av);
+char *getalias(char *name);
+int unsetalias(char *name);
+
+/* from shellvars.c */
+int initsvars(int ac, char **av);
+char *getsvar(char *name);
+int setsvar(char *name, char *val);
+int unsetsvar(char *name);
+ShellVar **getspecial(void);
+ShellVar **getvars(void);
+
+/* from _realloc.c */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+/* from _strtok.c */
+char *strtok(char *str, char *delim);
+
+/* from _getline.c */
+int _getline(char **lineptr, int fd);
+
+char *strtokqe(char *str, char *delim, int escflags);
+
+/* from _printenv.c */
+int _printenv(void);
+int _putchar(char c);
+
+/*from history.c*/
+int sethist(char *cmd);
+int print_hist(void);
+int exit_hist(void);
+
+/*from help.c*/
+int help(char *cmd);
+
+/* from exitcleanup.c */
+void exitcleanup(char **av);
+
+/* from _atoi*/
+int _atoi(char *s);
+
+char *_getpid(void);
+
+
+#endif
